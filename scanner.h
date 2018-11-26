@@ -1,6 +1,6 @@
 
 typedef enum token {
-	NUMERO = 0,
+	NUMERO = 1,
 	TEXTO,
 	IMPRIMIR,
 	LEER,
