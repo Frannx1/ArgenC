@@ -1,0 +1,65 @@
+#ifndef __dtype_h
+#define __dtype_h
+
+
+#include <stdint.h>
+
+#define INT_T 1
+#define STR_T 2
+#define FLOAT_T 3
+#define ARRAY_T 4
+
+#define MAX_VARS 10000
+
+typedef uint8_t type_t;
+
+typedef int VAR_ID;
+
+
+typedef union{
+	int intValue;
+	float floatValue;
+	char* strValue;
+	void* arrValue;
+} varValue;
+
+typedef struct{
+  	varValue value;
+	type_t type;
+} VAR;
+
+
+void map_name(VAR_ID id, char * name);
+VAR assign(VAR_ID id, VAR assigned);
+VAR anon_var(uint64_t value, type_t type);
+void free_var_resources(VAR* v);
+
+VAR anon_float(float value);
+VAR anon_int(int value);
+VAR anon_str(char* value);
+VAR anon_arr(int n, ...);
+
+void add_to_array(VAR_ID id, VAR new_elem);
+VAR array_index(VAR array, VAR index);
+void array_assign(VAR array, VAR index, VAR newVar);
+
+VAR_ID new_var(type_t type, void * value);
+VAR get_var(VAR_ID id);
+VAR var_clone(VAR var);
+
+
+int compare(VAR first, VAR second);
+int is_equals(VAR first, VAR second);
+
+
+VAR var_sum(VAR left, VAR right);
+VAR var_sub(VAR left, VAR right);
+VAR var_prod(VAR left, VAR right);
+VAR var_div(VAR left, VAR right);
+VAR var_minus(VAR var);
+
+// Para mostrar errores: se pasa un tipo y se devuelve un string con el nombre
+char* get_typename(type_t type);
+
+
+#endif

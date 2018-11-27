@@ -1,0 +1,18 @@
+imprimime "hola" 
+s es "jeje" 
+imprimi s 
+pone s en mayuscula 
+imprimi s
+
+ejemplo es 2
+
+imprimi 4.5
+
+lista es [1,2,3]
+
+aux es lista[1]
+
+por cada num en lista hacer
+imprimi num
+fin
+salir

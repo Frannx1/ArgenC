@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "ast.h"
+#include "tree.h"
 
 #define MAX_IDS 10000
 
@@ -30,7 +30,7 @@ int getId(char *strId);
     BoolNode *boolnode;
     FunctionNode*fnnode;
     ForNode *fornode;
-    ForEachNode *foreachnode;
+    ForeachNode *foreachnode;
 
     ExpressionNode *exprnode;
 
@@ -143,7 +143,7 @@ block:
     }
     | foreach {
         $$ = malloc(sizeof(*$$));
-        $$->type = FOR_EACH;
+        $$->type = FOREACH_LOOP;
         $$->node = $1;
     }
     | for {
@@ -383,11 +383,11 @@ while:
     ;
 
 foreach: 
-    PORCADA IDENTIFICADOR EN IDENTIFICADOR program FIN {
+    PORCADA IDENTIFICADOR EN IDENTIFICADOR HACER program FIN {
         $$ = malloc(sizeof(*$$));
-        $$->current = $2;
-        $$->list = $4;
-        $$->body = $5;
+        $$->current = getId($2);
+        $$->list = getId($4);
+        $$->body = $6;
     }
     ;
 
@@ -492,9 +492,9 @@ int main() {
 
 	printf("#include \"variables.h\"\n");
 
-	printf("#include \"prose_arrays.h\"\n");
+	printf("#include \"arrays.h\"\n");
 
-	printf("#include \"prose_functions.h\"\n");
+	printf("#include \"utils.h\"\n");
 
     printf("int main(void) { \n\n");
 
