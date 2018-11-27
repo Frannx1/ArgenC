@@ -119,7 +119,7 @@ void do_while(WhileNode* w_node){
 
 	do_boolean_condition(w_node->condition); //Se outputea la condicion
 
-	printf("){\n");
+	printf(") {\n");
 
 	produce(w_node->body);	// El codigo dentro del while es lo mismo que un programa entero
 							// (una serie de Statements)
@@ -132,8 +132,7 @@ void do_while(WhileNode* w_node){
 	codigo para un while loop que ejecute por cada elemento del arreglo*/
 void do_for_each(ForeachNode * node){
 	printf("reset_iterator(get_var(%d));", node->list);
-	printf("\n\nwhile( ");
-	printf("hasNext(get_var(%d))){\n", node->list );
+	printf("\n\nwhile(hasNext(get_var(%d))) {\n", node->list);
 
 	printf("assign(%d, next(get_var(%d)));\n", node->current,  node->list);
 	produce(node->body);// el codigo a ejecutar dentro de cada iteracion
@@ -143,11 +142,11 @@ void do_for_each(ForeachNode * node){
 /* Produce output por salida estandar:
 	codigo para un for loop */
 void do_for(ForNode* f_node){
-	printf("\n\for(");
+	printf("\n\nfor(");
 	do_assign(f_node->asig);
 	do_boolean_condition(f_node->condition); //Se outputea la condicion
 	printf(";");	
-	printf("){\n");
+	printf(") {\n");
 
 	produce(f_node->body);	// El codigo dentro del while es lo mismo que un programa entero
 							// (una serie de Statements)
