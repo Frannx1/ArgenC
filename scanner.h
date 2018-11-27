@@ -1,7 +1,10 @@
 
 typedef enum token {
 	NUMERO = 1,
+	ENTERO,
+	DECIMAL,
 	TEXTO,
+	IDENTIFICADOR,
 	IMPRIMIR,
 	LEER,
 	CONCATENAR,
@@ -30,6 +33,8 @@ typedef enum token {
 	MENOR_IGUAL,
 	MAYOR,
 	MAYOR_IGUAL,
+	RETORNA,
+	NADA,
 	SALIR,
 } token;
 
