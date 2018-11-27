@@ -1,6 +1,6 @@
 PROGRAM' -> PROGRAM.
 PROGRAM -> BLOCK | BLOCK PROGRAM.
-BLOCK  -> ASIG | ARRASIGN | PRINT | WHILE | IF | FUNCCALL | EXIT.
+BLOCK  -> ASIG | ARRASIGN | PRINT | WHILE | FOREACH | FOR | IF | FUNCCALL | EXIT.
 EXIT -> exit.
 ASIG -> id es E.
 ARRASIGN -> ARRINDEX es E.
@@ -11,6 +11,8 @@ ARRINDEX -> id corcheteA E corcheteC | ARRINDEX corcheteA E corcheteC.
 EXPLIST -> E | E coma EXPLIST.
 PRINT -> imprimir E.
 WHILE -> mientras separador CONDICION separador hacer PROGRAM fin | hasta separador CONDICION separador hacer PROGRAM fin.
+FOREACH -> porcada id en id PROGRAM fin.
+FOR -> desde ASIG hasta separador CONDICION separador hacer PROGRAM fin | desde hasta separador CONDICION separador hacer PROGRAM fin.
 IF -> si separador CONDICION separador hacer PROGRAM fin | si separador CONDICION separador hacer PROGRAM ELSEIF fin.
 ELSEIF -> sinosi separador CONDICION separador PROGRAM | sinosi separador CONDICION separador PROGRAM ELSEIF | sino PROGRAM.
 CONDICION -> E BOOL E | CONDICION or CONDICION | CONDICION and CONDICION | negar CONDICION.
@@ -36,5 +38,5 @@ S -> w#C#P | w#C#PS | zP.
 C -> EOE | E'E | E$E | !E.
 O -> < | > | =.
 
-
+prose_compiler < programa_prose.pr > compiled.c
 gcc -Wall prose_functions.c prose_arrays.c variable_arithmetics.c variable_comparisons.c variable_manager.c compiled.c -o ejemplo.out
