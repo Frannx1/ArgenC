@@ -1,0 +1,89 @@
+#include "variables.h"
+
+#include <math.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+#define EPSILON 0.00001
+
+static int compare_to_int(VAR intVar, VAR other);
+static int compare_to_float(VAR floatVar, VAR other);
+static int compare_to_str(VAR strVar, VAR other);
+
+static int compatible_equals_types(type_t t1, type_t t2);
+
+int compare(VAR first, VAR second){
+	switch(first.type){
+		case INT_T:
+			return compare_to_int(first, second);
+
+		case FLOAT_T:
+			return compare_to_float(first, second);
+
+		case STR_T:
+			return compare_to_str(first, second);
+
+		default:
+			printf("Error. Valores incomparables: %s con %s\n", get_typename(first.type), get_typename(second.type));
+			exit(0);
+	}
+}
+
+int is_equals(VAR first, VAR second){
+	if (compatible_equals_types(first.type, second.type))
+		return compare(first, second) == 0;
+	else
+		return 0;
+}
+
+static int compatible_equals_types(type_t t1, type_t t2){
+	return t1 == t2 || (t1 == INT_T && t2 == FLOAT_T) || (t1 == FLOAT_T && t2 == INT_T);
+}
+
+
+static int compare_to_int(VAR intVar, VAR other){
+	int i = intVar.value.intValue;
+
+	switch(other.type){
+		case INT_T:
+			return i - other.value.intValue;
+
+		case FLOAT_T:
+			return fabs(i - other.value.floatValue) < EPSILON ? 0 :
+					(i - other.value.floatValue < 0) ? -1 : 1;
+
+		default:
+			printf("Error. Valores incomparables: %s con %s\n", get_typename(intVar.type), get_typename(other.type));
+			exit(0);
+	}
+}
+
+
+static int compare_to_float(VAR floatVar, VAR other){
+	float i = floatVar.value.floatValue;
+	switch(other.type){
+		case INT_T:
+			return -compare_to_int(other, floatVar);
+
+		case FLOAT_T:
+			return fabs(i - other.value.floatValue) < EPSILON ? 0 :
+					(i - other.value.floatValue < 0) ? -1 : 1;
+
+		default:
+			printf("Error. Valores incomparables: %s con %s\n", get_typename(floatVar.type), get_typename(other.type));
+			exit(0);
+	}
+}
+
+
+static int compare_to_str(VAR strVar, VAR  other){
+		switch(other.type){
+		case STR_T:
+			return strcmp(strVar.value.strValue, other.value.strValue);
+
+		default:
+			printf("Error. Valores incomparables: %s con %s\n", get_typename(strVar.type), get_typename(other.type));
+			exit(0);
+	}
+}

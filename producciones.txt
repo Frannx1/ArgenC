@@ -37,4 +37,4 @@ C -> EOE | E'E | E$E | !E.
 O -> < | > | =.
 
 
-gcc -Wall prose_functions.c prose_arrays.c variable_arithmetics.c variable_comparisons.c variable_manager.c compiled.c -o ejemplo.out
+gcc -Wall utils.c arrays.c arithmetics.c compares.c variable_manager.c compiled.c -o ejemplo.out

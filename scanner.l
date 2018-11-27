@@ -1,5 +1,5 @@
 %{
-	#include "ast.h"
+	#include "tree.h"
     #include "y.tab.h"
     #include <string.h>
     #include <stdlib.h>
@@ -73,8 +73,8 @@ nada|vacio			            {yylval.strval = "void"; return NADA;}
 salir                           return SALIR;
 
 {alpha}({alpha}|{digit})*	 	{yylval.strval   = strdup(yytext); return IDENTIFICADOR;}
-{digit}+						{yylval.floatval = atof(yytext);   return ENTERO;}
-{digit}+\.{digit}+			    {yylval.intval   = atoi(yytext);   return DECIMAL;}
+{digit}+						{yylval.intval = atoi(yytext);   return ENTERO;}
+{digit}+\.{digit}+			    {yylval.floatval   = atof(yytext);   return DECIMAL;}
 \'[^\']*\'|\"[^\"]*\"			{
 									yylval.strval   = strndup(yytext +1, strlen(yytext) -2); 
 									return STRING;
