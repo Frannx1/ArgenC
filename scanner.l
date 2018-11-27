@@ -37,6 +37,9 @@ mientras(\ que)?\ no            return HASTA;
 hasta(\ que)?                   return HASTA;
 (repetir|hacer):?               return HACER;
 
+(por|para)\ cada(\ un)?         return PORCADA;
+desde                           return DESDE;
+
 si(\ pasa(\ que)?)?             return SI;
 en\ cambio\ si(\ pasa(\ que)?)? return SINOSI;
 si\ no\ si                      return SINOSI;

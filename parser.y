@@ -29,6 +29,8 @@ int getId(char *strId);
     IfNode *ifnode;
     BoolNode *boolnode;
     FunctionNode*fnnode;
+    ForNode *fornode;
+    ForEachNode *foreachnode;
 
     ExpressionNode *exprnode;
 
@@ -48,7 +50,7 @@ int getId(char *strId);
 %token <floatval> DECIMAL;
 
 %token NUMERO TEXTO NADA;
-%token SI SINOSI SINO MIENTRAS HASTA HACER RETORNA SEPARADOR;
+%token SI SINOSI SINO MIENTRAS HASTA HACER DESDE PORCADA RETORNA SEPARADOR;
 
 %token ES;
 %token POR DIVIDIDO DECREMENTAR INCREMENTAR;
@@ -73,6 +75,8 @@ int getId(char *strId);
 %type <fnnode> func_call;
 
 %type <whilenode> while;
+%type <foreachnode> foreach;
+%type <fornode> for;
 
 %type <ifnode> if;
 %type <ifnode> elseif;
@@ -135,6 +139,16 @@ block:
     | while {
         $$ = malloc(sizeof(*$$));
         $$->type = WHILE_LOOP;
+        $$->node = $1;
+    }
+    | foreach {
+        $$ = malloc(sizeof(*$$));
+        $$->type = FOR_EACH;
+        $$->node = $1;
+    }
+    | for {
+        $$ = malloc(sizeof(*$$));
+        $$->type = FOR_LOOP;
         $$->node = $1;
     }
     | if {
@@ -365,6 +379,30 @@ while:
         $$->condition->type = BOOL_NOT;
         $$->condition->left = $3;
         $$->body = $6;
+    }
+    ;
+
+foreach: 
+    PORCADA IDENTIFICADOR EN IDENTIFICADOR program FIN {
+        $$ = malloc(sizeof(*$$));
+        $$->current = $2;
+        $$->list = $4;
+        $$->body = $5;
+    }
+    ;
+
+for:
+    DESDE asig HASTA SEPARADOR condition SEPARADOR HACER program FIN {
+        $$ = malloc(sizeof(*$$));
+        $$->asig = $2;
+        $$->condition = $5;
+        $$->body = $8;
+    }
+    | DESDE HASTA SEPARADOR condition SEPARADOR HACER program FIN {
+        $$ = malloc(sizeof(*$$));
+        $$->asig = NULL;
+        $$->condition = $4;
+        $$->body = $7;
     }
     ;
 
