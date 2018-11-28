@@ -1,5 +1,5 @@
-#ifndef tree_h
-#define tree_h
+#ifndef TREE_H
+#define TREE_H
 
 #define BOOL_TRUE 1
 #define BOOL_FALSE 0
@@ -128,6 +128,6 @@ typedef struct arr_as {
 	ExpressionNode * value;
 } ArrayAssignment;
 
-void produce(StatementList * block);
+void realize(StatementList * block);
 
 #endif

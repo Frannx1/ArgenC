@@ -97,7 +97,7 @@ int getId(char *strId);
 %%
 
 entry: 
-    program {produce($1);}
+    program {realize($1);}
     ;
 
 program:
@@ -521,7 +521,7 @@ int getId(char *strId) {
 
 	identifiers[i] = malloc(strlen(strId) + 1);
 	strcpy(identifiers[i], strId);
-	printf("map_name(%d, \"%s\");\n", i, strId);
+	printf("mapAName(%d, \"%s\");\n", i, strId);
 
 	return i;
 }

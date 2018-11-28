@@ -1,8 +1,9 @@
-#ifndef __p_arrays
-#define __p_arrays
+#ifndef ARRAY_H
+#define ARRAY_H
+
 #include "variables.h"
 
-typedef struct arr{
+typedef struct ArrayCDT {
 	VAR * values;
 	int size;
 	int capacity;
@@ -10,21 +11,36 @@ typedef struct arr{
 } ArrayCDT;
 
 
-typedef ArrayCDT* Array;
+typedef ArrayCDT *Array;
 
-Array new_array();
-void array_push(Array arr, VAR value);
-Array array_substract(Array source, Array other);
-Array array_remove(Array source, VAR value);
-int array_contains(Array arr, VAR value);
-void array_print(Array arr);
-void array_free(Array arr);
-Array array_clone(Array arr);
-void array_cat(Array arr, Array other);
+Array createArray();
 
-VAR array_access(Array arr, int index);
-void array_modify(Array arr, int index, VAR value);
-VAR next(VAR arr);
-int hasNext(VAR arr);
-void reset_iterator(VAR arr);
+void pushArray(Array array, VAR value);
+
+Array substractArray(Array source, Array other);
+
+Array removeArray(Array source, VAR value);
+
+int containsArray(Array array, VAR value);
+
+VAR next(VAR array);
+
+int hasNext(VAR array);
+
+void resetIterator(VAR array);
+
+Array cloneArray(Array array);
+
+void concatArray(Array array, Array other);
+
+VAR accessToArray(Array array, int index);
+
+void editArray(Array array, int index, VAR value);
+
+void printArray(Array array);
+
+void freeArray(Array array);
+
+
 #endif
+

@@ -1,6 +1,5 @@
-#ifndef __dtype_h
-#define __dtype_h
-
+#ifndef VARIABLES_H
+#define VARIABLES_H
 
 #include <stdint.h>
 
@@ -8,7 +7,6 @@
 #define STR_T 2
 #define FLOAT_T 3
 #define ARRAY_T 4
-
 #define MAX_VARS 10000
 
 typedef uint8_t type_t;
@@ -29,37 +27,49 @@ typedef struct{
 } VAR;
 
 
-void map_name(VAR_ID id, char * name);
+void mapAName(VAR_ID id, char * name);
+
 VAR assign(VAR_ID id, VAR assigned);
-VAR anon_var(uint64_t value, type_t type);
-void free_var_resources(VAR* v);
 
-VAR anon_float(float value);
-VAR anon_int(int value);
-VAR anon_str(char* value);
-VAR anon_arr(int n, ...);
+VAR anonVariable(uint64_t value, type_t type);
 
-void add_to_array(VAR_ID id, VAR new_elem);
-VAR array_index(VAR array, VAR index);
-void array_assign(VAR array, VAR index, VAR newVar);
+void freeVariable(VAR* v);
 
-VAR_ID new_var(type_t type, void * value);
-VAR get_var(VAR_ID id);
-VAR var_clone(VAR var);
+VAR anonFloat(float value);
 
+VAR anonInteger(int value);
+
+VAR anonString(char* value);
+
+VAR anonArray(int n, ...);
+
+void addInArray(VAR_ID id, VAR new_elem);
+
+VAR indexOfArray(VAR array, VAR index);
+
+void assignmentOfArray(VAR array, VAR index, VAR newVar);
+
+VAR_ID createVariable(type_t type, void * value);
+
+VAR getVariable(VAR_ID id);
+
+VAR cloneVariable(VAR var);
 
 int compare(VAR first, VAR second);
-int is_equals(VAR first, VAR second);
 
+int areEquals(VAR first, VAR second);
 
-VAR var_sum(VAR left, VAR right);
-VAR var_sub(VAR left, VAR right);
-VAR var_prod(VAR left, VAR right);
-VAR var_div(VAR left, VAR right);
-VAR var_minus(VAR var);
+VAR sum(VAR left, VAR right);
 
-// Para mostrar errores: se pasa un tipo y se devuelve un string con el nombre
-char* get_typename(type_t type);
+VAR substract(VAR left, VAR right);
+
+VAR product(VAR left, VAR right);
+
+VAR division(VAR left, VAR right);
+
+VAR minus(VAR var);
+
+char* getNameofType(type_t type);
 
 
 #endif

@@ -1570,7 +1570,7 @@ yyreduce:
     {
         case 2:
 #line 100 "parser.y"
-    {produce((yyvsp[(1) - (1)].statements));}
+    {realize((yyvsp[(1) - (1)].statements));}
     break;
 
   case 3:
@@ -2400,7 +2400,7 @@ int getId(char *strId) {
 
 	identifiers[i] = malloc(strlen(strId) + 1);
 	strcpy(identifiers[i], strId);
-	printf("map_name(%d, \"%s\");\n", i, strId);
+	printf("mapAName(%d, \"%s\");\n", i, strId);
 
 	return i;
 }

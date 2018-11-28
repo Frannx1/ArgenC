@@ -1,11 +1,18 @@
-#ifndef __prose_func_h
-#define __prose_func_h
+#ifndef UTILS_H
+#define UTILS_H
 
-void print_var(VAR var, int newline);
-void append(int source_id, VAR elem);
-void toupper_str(int str_id);
-void tolower_str(int str_id);
+void printVariable(VAR var, int newline);
+
+void append(int sourceId, VAR elem);
+
+void toUpperString(int stringId);
+
+void toLowerString(int stringId);
+
 void inc(int num_id);
+
 void dec(int num_id);
+
 void scan(int type, VAR_ID elem);
+
 #endif
