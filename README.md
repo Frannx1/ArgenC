@@ -13,6 +13,7 @@ Utiliza lenguaje cotidiano, como si se programara en seudocódigo.
 | 3                  | factorial          |calcula el factorial de un numero entero ingresado.|
 | 4                  | foreachtest        |itera una lista usando el "foreach" y muestra el pasaje a mayuscula de un string.|
 | 5                  | estadisticas       |realiza funciones de estadistica.|
+| 6                  | adivinador         | prueba los numeros random.|
 
 
 **NOTA:** la extención definida para los archivos de código fuente de lenguaje **argenC** es **.arg**.
