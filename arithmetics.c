@@ -88,7 +88,6 @@ VAR division(VAR left, VAR right) {
 	}
 }
 
-
 VAR minus(VAR var) {
 
 	switch(var.type){
@@ -102,8 +101,6 @@ VAR minus(VAR var) {
 
 	return var;
 }
-
-
 
 static VAR sumOfIntegers(VAR left, VAR right, int sign) {
 	switch(right.type) {
@@ -136,7 +133,6 @@ static VAR sumOfIntegers(VAR left, VAR right, int sign) {
 			exit(0);
 	}
 }
-
 
 static VAR sumOfFloat(VAR left, VAR right, int sign){
 	switch(right.type){
@@ -171,7 +167,6 @@ static VAR sumOfFloat(VAR left, VAR right, int sign){
 			exit(0);
 	}
 }
-
 
 static VAR sumOfString(VAR left, VAR right) {
 		switch(right.type) {
@@ -208,7 +203,6 @@ static VAR sumOfString(VAR left, VAR right) {
 	}
 }
 
-
 static VAR sumOfArray(VAR left, VAR right) {
 	switch(right.type) {
 		case ARRAY_T:
@@ -234,7 +228,6 @@ static VAR sumOfArray(VAR left, VAR right) {
 			exit(0);
 	}
 }
-
 
 static VAR subOfString(VAR left, VAR right){
 	switch(right.type) {
@@ -335,9 +328,6 @@ static VAR productOfInteger(VAR left, VAR right) {
 	}
 }
 
-
-
-
 static VAR productOfFloat(VAR left, VAR right) {
 	switch(right.type) {
 		case INT_T:
@@ -356,8 +346,6 @@ static VAR productOfFloat(VAR left, VAR right) {
 	}
 }
 
-
-
 static VAR productOfString(VAR left, VAR right) {
 	switch(right.type) {
 		case INT_T:
@@ -375,9 +363,6 @@ static VAR productOfString(VAR left, VAR right) {
 			exit(0);
 	}
 }
-
-
-
 
 static VAR divisionOfInteger(VAR left, VAR right) {
 	switch(right.type) {
@@ -407,7 +392,6 @@ static VAR divisionOfInteger(VAR left, VAR right) {
 	}
 }
 
-
 static VAR divisionOfFloat(VAR left, VAR right) {
 	switch(right.type) {
 		case INT_T:
@@ -435,8 +419,6 @@ static VAR divisionOfFloat(VAR left, VAR right) {
 			exit(0);
 	}
 }
-
-
 
 static VAR divisionOfString(VAR left, VAR right) {
 	switch(right.type) {
