@@ -7,7 +7,7 @@ SCANNER := scanner.l
 all:
 	$(YACC) $(YACCFLAGS) $(PARSER)
 	$(LEX) $(SCANNER)
-	$(CC) $(CCFLAGS) y.tab.c lex.yy.c tree.c -o $(COMPILER).out
+	$(CC) $(CCFLAGS) y.tab.c lex.yy.c tree.c -o $(COMPILER).out -ly
 	chmod 777 ./ejemplos/exampleRunner.sh
 
 clean:

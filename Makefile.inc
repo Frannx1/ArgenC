@@ -1,5 +1,5 @@
 CC=gcc
-CCFLAGS=-Wall -ly
+CCFLAGS=-Wall
 
 LEX=lex
 
