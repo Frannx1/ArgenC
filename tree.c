@@ -4,7 +4,7 @@
 
 #include "tree.h"
 
-#define STR_OVERHEAD 25
+#define STR_OVERHEAD 35
 #define MAX_DIGITS 30
 
 void generatePrint(ExpressionNode *node);
@@ -106,6 +106,7 @@ void generateFunctionCall(FunctionNode *node) {
 			exit(1);
 			break;
 	}
+	free(node);
 }
 
 void generateWhile(WhileNode *node) {
@@ -114,6 +115,7 @@ void generateWhile(WhileNode *node) {
 	printf(") {\n");
 	realize(node->body);
 	printf("}\n\n");
+	free(node);
 }
 
 void generateDoWhile(WhileNode *node) {
@@ -122,6 +124,7 @@ void generateDoWhile(WhileNode *node) {
 	printf("\n}while(");
 	generateBoolCondition(node->condition); 
 	printf(");\n\n");
+	free(node);
 }
 
 void generateForEach(ForeachNode * node) {
@@ -130,6 +133,7 @@ void generateForEach(ForeachNode * node) {
 	printf("assign(%d, next(getVariable(%d)));\n", node->current,  node->list);
 	realize(node->body);
 	printf("}\n\n");
+	free(node);
 }
 
 void generateFor(ForNode * node) {
@@ -140,6 +144,7 @@ void generateFor(ForNode * node) {
 	printf(") {\n");
 	realize(node->body);
 	printf("}\n\n");
+	free(node);
 }
 
 
@@ -158,6 +163,7 @@ void generateIf(IfNode *node) {
 		realize(node->body);
 		printf("} ");
 	}
+	free(node);
 }
 
 
@@ -165,6 +171,7 @@ void generateAssign(AssignmentNode *node) {
 	char * expression = getExpression(node->value);
 	printf("assign(%d, %s);\n", node->var_id, expression);
 	free(expression);
+	free(node);
 }
 
 
@@ -180,6 +187,7 @@ void generateAssignmentOfArrayment(ArrayAssignment *a) {
 			printf("getVariable(%d), %s, %s);\n", *((int*)array->left), idx, val);
 
 			free(idx);
+			free(val);
 			break;
 		}
 		case NESTED_INDEXING:
@@ -189,11 +197,14 @@ void generateAssignmentOfArrayment(ArrayAssignment *a) {
 			char * val = getExpression(value);
 			printf("%s, %s, %s);", ary, idx, val);
 			free(idx);
+			free(ary);
+			free(val);
 			break;
 		}
 		default:
 			break;
 	}
+	free(a);
 }
 
 
@@ -251,6 +262,7 @@ void generateBoolCondition(BoolNode *node) {
 			generateBoolComparison(node, ">=");
 			break;
 	}
+	free(node);
 }
 
 
@@ -343,7 +355,9 @@ char* getExpression(ExpressionNode *node) {
 					result = realloc(result, len + strlen(expr) + 3);
 					sprintf(result+len, ", %s", expr);
 					free(expr);
+					ExpressionList * prev = list;
 					list = list->next;
+					free(prev);
 				}
 				int len = strlen(result);
 				result = realloc(result, len + 2);
@@ -369,7 +383,7 @@ char* getExpression(ExpressionNode *node) {
 			result = malloc(STR_OVERHEAD + strlen(idx) + strlen(ary));
 			sprintf(result, "indexOfArray(%s, %s)", ary, idx);
 			free(idx);
-
+			free(ary);
 			break;
 		}
 
@@ -377,7 +391,6 @@ char* getExpression(ExpressionNode *node) {
 			char * expr = getExpression((ExpressionNode*)node->left);
 			result = malloc(strlen(expr) + STR_OVERHEAD);
 			sprintf(result, "minus(%s)", expr);
-
 			free(expr);
 			break;
 		}
@@ -406,6 +419,12 @@ char* getExpression(ExpressionNode *node) {
 		case ARIT_DIV:
 		{
 			result = getArithmeticBinary(node, "division");
+			break;
+		}
+		default:
+		{
+			fprintf(stderr, "Error in expression, state: %d\n", node->type);
+			abort();
 		}
 
 	}
@@ -415,12 +434,12 @@ char* getExpression(ExpressionNode *node) {
 }
 
 char * getArithmeticBinary(ExpressionNode *node, char *funcName){
-			char * left = getExpression((ExpressionNode*)node->left);
-			char * right = getExpression((ExpressionNode*)node->right);
-			char * result = malloc(STR_OVERHEAD + strlen(left) + strlen(right) + 1);
-			sprintf(result, "%s(%s, %s)", funcName, left, right);
-			free(left);
-			free(right);
-			return result;
+	char * left = getExpression((ExpressionNode*)node->left);
+	char * right = getExpression((ExpressionNode*)node->right);
+	char * result = malloc(STR_OVERHEAD + strlen(left) + strlen(right) + 1);
+	sprintf(result, "%s(%s, %s)", funcName, left, right);
+	free(left);
+	free(right);
+	return result;
 }
 
