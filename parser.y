@@ -416,6 +416,13 @@ dowhile:
         $$->condition->left = $5;
         $$->body = $2;
     }
+    | HACER program FIN HASTA SEPARADOR condition SEPARADOR {
+        $$ = malloc(sizeof(*$$));
+        $$->condition = malloc(sizeof(*$$->condition));
+        $$->condition->type = BOOL_NOT;
+        $$->condition->left = $6;
+        $$->body = $2;
+    }
     ;
 
 foreach: 
@@ -424,6 +431,12 @@ foreach:
         $$->current = getId($2);
         $$->list = getId($4);
         $$->body = $6;
+    }
+    | PORCADA IDENTIFICADOR EN IDENTIFICADOR SEPARADOR HACER program FIN {
+        $$ = malloc(sizeof(*$$));
+        $$->current = getId($2);
+        $$->list = getId($4);
+        $$->body = $7;
     }
     ;
 

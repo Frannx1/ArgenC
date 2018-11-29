@@ -92,6 +92,8 @@ VAR minus(VAR var) {
 
 	switch(var.type){
 		case INT_T:
+			var.value.floatValue = -var.value.floatValue;
+			break;
 		case FLOAT_T:
 			var.value.intValue = -var.value.intValue;
 			break;
@@ -138,14 +140,12 @@ static VAR sumOfFloat(VAR left, VAR right, int sign){
 	switch(right.type){
 		case INT_T:
 		{
-			float iresult = left.value.floatValue + right.value.intValue;
-			iresult *= sign;
-			return anonInteger(iresult);
+			float fresult = left.value.floatValue + sign * right.value.intValue;
+			return anonFloat(fresult);
 		}
 		case FLOAT_T:
 		{
-			float fresult = left.value.floatValue + right.value.floatValue;
-			fresult *= sign;
+			float fresult = left.value.floatValue + sign * right.value.floatValue;
 			return anonFloat(fresult);
 		}
 		case STR_T:
@@ -331,7 +331,10 @@ static VAR productOfInteger(VAR left, VAR right) {
 static VAR productOfFloat(VAR left, VAR right) {
 	switch(right.type) {
 		case INT_T:
-			return productOfInteger(right, left);
+		{
+			float fresult = left.value.floatValue * right.value.intValue;
+			return anonFloat(fresult);
+		}
 		case FLOAT_T:
 		{
 			float fresult = left.value.floatValue * right.value.floatValue;
@@ -396,12 +399,12 @@ static VAR divisionOfFloat(VAR left, VAR right) {
 	switch(right.type) {
 		case INT_T:
 		{
-			float iresult = left.value.intValue / right.value.intValue;
+			float iresult = left.value.floatValue / right.value.intValue;
 			return anonFloat(iresult);
 		}
 		case FLOAT_T:
 		{
-			float fresult = left.value.intValue / right.value.floatValue;
+			float fresult = left.value.floatValue / right.value.floatValue;
 			return anonFloat(fresult);
 		}
 		case STR_T:

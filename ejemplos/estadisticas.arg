@@ -1,0 +1,65 @@
+muestra es []
+cantidad es 0
+
+hacer:
+    si cantidad igual 0, entonces
+        imprimir "Ingrese un valor a la muestra o 0 para terminar"
+    fin
+    si no
+        imprimir "Ingrese otro valor a la muestra o 0 para terminar"
+    fin
+
+    leer numero en n
+    si n distinto a 0, entonces
+        muestra es muestra + 1
+        muestra[cantidad] es n
+        incrementar cantidad
+    fin
+    en cambio si pasa que cantidad menor o igual a 1
+        imprimir "Debe ingresar al menos dos valores a la muestra"
+    fin
+fin
+hasta que n sea igual a 0 y cantidad sea mayor a 1
+
+suma es 0.0
+para cada valor en muestra, hacer
+    suma es suma + valor
+fin
+media es suma dividido cantidad
+
+suma es 0.0
+para cada valor en muestra, hacer
+    resta es valor - media
+    suma es suma + (resta * resta)
+fin
+varianza es suma dividido (cantidad - 1)
+
+comentario: voy a calcular el desvio estandar sacando la raiz de la varianza.
+
+x = 1.0         // Initial guess
+epsilon = 0.00001
+
+mientras que x*x*varianza sea mayor o igual a 3, hacer:
+    x es x por 0.5
+fin
+
+hacer:
+    xprev = x
+    x = 0.5*(3*xprev - (xprev*xprev*xprev)*varianza)
+    corte = x - xprev
+    si corte menor a 0, hacer
+        corte es -corte
+    fin
+fin
+hasta que corte sea menor o igual que epsilon
+
+desvio es x por varianza
+
+imprimime "Tamaño de la muestra: " + cantidad
+imprimime "Media de la muestra: " + media
+imprimime "Varianza de la muestra: " + varianza
+imprimime "Desvio de la muestra: " + desvio
+
+salir
+
+

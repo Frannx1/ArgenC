@@ -59,14 +59,15 @@ no(\ debe\ ser)?                return NEGAR;
 y(\ tambien)?                   return Y;
 o(\ tambien)?                   return O;
 
-no\ es|sea(\ igual(\ (a|que))?)?    return DESIGUAL;
-igual(\ (a|que))?                   return IGUAL;
-(es|sea)\ equivalente\ (a)?         return IGUAL;
+no\ sea(\ igual(\ (a|que))?)?    return DESIGUAL;
+(sea\ )?distinto(\ (a|que))?     return DESIGUAL;
+(sea\ )?igual(\ (a|que))?        return IGUAL;
+(sea\ )?equivalente\ (a)?        return IGUAL;
 
-((es|sea)\ )?menor(\ (a|que))?             return MENOR;
-((es|sea)\ )?menor\ o\ igual(\ (a|que))?   return MENOR_IGUAL;
-((es|sea)\ )?mayor(\ (a|que))?             return MAYOR;
-((es|sea)\ )?mayor\ o\ igual(\ (a|que))?   return MAYOR_IGUAL;
+(sea\ )?menor(\ (a|que))?             return MENOR;
+(sea\ )?menor\ o\ igual(\ (a|que))?   return MENOR_IGUAL;
+(sea\ )?mayor(\ (a|que))?             return MAYOR;
+(sea\ )?mayor\ o\ igual(\ (a|que))?   return MAYOR_IGUAL;
 
 devuelve|retorna|da             return RETORNA;
 nada|vacio			            {yylval.strval = "void"; return NADA;}
