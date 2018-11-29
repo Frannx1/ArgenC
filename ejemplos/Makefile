@@ -11,11 +11,11 @@ factorial:
 foreachtest:
 	gcc -Wall -I./.. foreachtest.c ./../utils.c ./../arrays.c ./../arithmetics.c ./../compare.c ./../variables.c -o foreachtest.out
 
-statistics:
-		gcc -Wall -I./.. statistics.c ./../utils.c ./../arrays.c ./../arithmetics.c ./../compare.c ./../variables.c -o statistics.out
+estadisticas:
+		gcc -Wall -I./.. estadisticas.c ./../utils.c ./../arrays.c ./../arithmetics.c ./../compare.c ./../variables.c -o estadisticas.out
 
 clean: 
 	rm *.out
 	rm *.c
 
-.PHONY: primos fibonacci factorial foreachtest statistics clean
+.PHONY: primos fibonacci factorial foreachtest estadisticas clean

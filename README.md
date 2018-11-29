@@ -12,7 +12,7 @@ Utiliza lenguaje cotidiano, como si se programara en seudocódigo.
 | 2                  | fibonacci          |calcula los n primeros terminos de fibonnaci siendo n un parametro.|
 | 3                  | factorial          |calcula el factorial de un numero entero ingresado.|
 | 4                  | foreachtest        |itera una lista usando el "foreach" y muestra el pasaje a mayuscula de un string.|
-| 5                  | statistics         |realiza funciones de estadistica.|
+| 5                  | estadisticas       |realiza funciones de estadistica.|
 
 
 **NOTA:** la extención definida para los archivos de código fuente de lenguaje **argenC** es **.arg**.
