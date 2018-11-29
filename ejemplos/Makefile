@@ -14,8 +14,11 @@ foreachtest:
 estadisticas:
 		gcc -Wall -I./.. estadisticas.c ./../utils.c ./../arrays.c ./../arithmetics.c ./../compare.c ./../variables.c -o estadisticas.out
 
+adivinador:
+		gcc -Wall -I./.. adivinador.c ./../utils.c ./../arrays.c ./../arithmetics.c ./../compare.c ./../variables.c -o adivinador.out
+
 clean: 
 	rm *.out
 	rm *.c
 
-.PHONY: primos fibonacci factorial foreachtest estadisticas clean
+.PHONY: primos fibonacci factorial foreachtest estadisticas adivinador clean

@@ -1,0 +1,16 @@
+numeroMagico es aleatorio
+numeroMagico es aleatorio
+
+desde i = 10 hasta i mayor que 0, hacer:
+    imprimir "Debes adivinar el numero, tienes " + i + " chances"
+    leer numero en n
+    si n equivalente a numeroMagico, entonces
+        imprimir "Felicitaciones!! Acertaste, son muy bajas las posibilidades pero lo has logrado."
+        salir
+    fin
+    decrementar i
+fin
+
+imprimir "Lo siento, el numero a adivinar era: " + numeroMagico
+
+salir
