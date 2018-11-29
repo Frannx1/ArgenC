@@ -5,6 +5,7 @@
     #include <stdlib.h>
 
 	static void comment(void);
+	static void commentToDot(void);
 	void yyerror (char *s);
 %}
 
@@ -15,8 +16,9 @@ digit [0-9]
 
 
 %%
-"/*"                             { comment(); }
-"//".*                           { /* consume //-comment */ }
+"/*"                            { comment(); }
+"//".*                          { /* consume //-comment */ }
+(comentario|nota):              { commentToDot(); }
 
 numero                          return NUMERO;
 texto                           return TEXTO;
@@ -24,30 +26,29 @@ texto                           return TEXTO;
 imprimi(r|me)?                  return IMPRIMIR;
 lee(r|me)?                      return LEER;
 concatena(r|me)?                return CONCATENAR;
-a								return A;
 
 pone(r|me)?                     return PONER;
 en                              return EN;
 mayuscula                       return MAYUSCULA;
 minuscula                       return MINUSCULA;
 
-\"								return SEPARADOR;
+\"|(,\ )    				    return SEPARADOR;
 mientras(\ que)?                return MIENTRAS;
 mientras(\ que)?\ no            return HASTA;
 hasta(\ que)?                   return HASTA;
-(repetir|hacer):?               return HACER;
+(repetir|hacer|entonces):?      return HACER;
 
 (por|para)\ cada(\ un)?         return PORCADA;
 desde                           return DESDE;
 
-si(\ pasa(\ que)?)?             return SI;
+si(\ (pasa|es)(\ que)?)?        return SI;
 en\ cambio\ si(\ pasa(\ que)?)? return SINOSI;
 si\ no\ si                      return SINOSI;
 si\ no                          return SINO;
 
 fin                             return FIN;
 
-(es|=)                          return ES;
+es|=|vale                       return ES;
 
 por                             return POR;
 dividido                        return DIVIDIDO;
@@ -58,20 +59,20 @@ no(\ debe\ ser)?                return NEGAR;
 y(\ tambien)?                   return Y;
 o(\ tambien)?                   return O;
 
-no\ es(\ igual(\ a|que)?)?      return DESIGUAL;
-es(\ igual(\ a|que)?)?          return IGUAL;
-es\ equivalente\ (a)?           return IGUAL;
+no\ es|sea(\ igual(\ (a|que))?)?    return DESIGUAL;
+igual(\ (a|que))?                   return IGUAL;
+(es|sea)\ equivalente\ (a)?         return IGUAL;
 
-es\ menor(\ a|que)?             return MENOR;
-es\ menor\ o\ igual(\ a|que)?   return MENOR_IGUAL;
-es\ mayor(\ a|que)?             return MAYOR;
-es\ mayor\ o\ igual(\ a|que)?   return MAYOR_IGUAL;
+((es|sea)\ )?menor(\ (a|que))?             return MENOR;
+((es|sea)\ )?menor\ o\ igual(\ (a|que))?   return MENOR_IGUAL;
+((es|sea)\ )?mayor(\ (a|que))?             return MAYOR;
+((es|sea)\ )?mayor\ o\ igual(\ (a|que))?   return MAYOR_IGUAL;
 
 devuelve|retorna|da             return RETORNA;
 nada|vacio			            {yylval.strval = "void"; return NADA;}
-
 salir                           return SALIR;
 
+random|aleatorio                return RANDOM;
 {alpha}({alpha}|{digit})*	 	{yylval.strval   = strdup(yytext); return IDENTIFICADOR;}
 {digit}+						{yylval.intval   = atoi(yytext);   return ENTERO;}
 {digit}+\.{digit}+			    {yylval.floatval = atof(yytext);   return DECIMAL;}
@@ -97,6 +98,16 @@ static void comment(void) {
 
             if (c == 0)
                 break;
+        }
+    yyerror("unterminated comment");
+}
+
+static void commentToDot(void) {
+    int c;
+
+    while ((c = input()) != 0)
+        if (c == '.') {
+            return;
         }
     yyerror("unterminated comment");
 }

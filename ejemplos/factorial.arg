@@ -1,0 +1,22 @@
+hacer:
+    imprimir "Ingrese un numero al que desee calcular el factorial (debe ser menor a 16)"
+    leer numero en n
+fin
+mientras que n sea menor a 0 o n mayor a 16
+
+
+i es 1
+fact es 1
+mientras que i sea menor o igual a n, repetir:
+    // factorial de n es n.(n-1).(n-2). ... .1
+
+    fact es fact por i
+    incrementar i
+fin
+nota: use el comentario con // pues el comentario 
+      termina con puntos.
+
+comentario: en la salida imprimo el resultado.
+imprimir "El factorial de " + n + " es: " + fact
+
+salir

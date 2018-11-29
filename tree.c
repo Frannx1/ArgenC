@@ -10,6 +10,7 @@
 void generatePrint(ExpressionNode *node);
 void generateAssign(AssignmentNode *node);
 void generateWhile(WhileNode *node);
+void generateDoWhile(WhileNode *node);
 void generateIf(IfNode *node);
 void generateFunctionCall(FunctionNode *node);
 void generateForEach(ForeachNode *node);
@@ -41,6 +42,10 @@ void realize(StatementList *block) {
 
 			case WHILE_LOOP:
 				generateWhile((WhileNode*) block->body);
+				break;
+
+			case DO_WHILE_LOOP:
+				generateDoWhile((WhileNode*) block->body);
 				break;
 
 			case IF_THEN_ELSE:
@@ -109,7 +114,14 @@ void generateWhile(WhileNode *node) {
 	printf(") {\n");
 	realize(node->body);
 	printf("}\n\n");
+}
 
+void generateDoWhile(WhileNode *node) {
+	printf("\n\ndo {\n");
+	realize(node->body);
+	printf("\n}while(");
+	generateBoolCondition(node->condition); 
+	printf(");\n\n");
 }
 
 void generateForEach(ForeachNode * node) {
@@ -128,7 +140,6 @@ void generateFor(ForNode * node) {
 	printf(") {\n");
 	realize(node->body);
 	printf("}\n\n");
-
 }
 
 
@@ -147,8 +158,6 @@ void generateIf(IfNode *node) {
 		realize(node->body);
 		printf("} ");
 	}
-
-
 }
 
 
@@ -171,10 +180,8 @@ void generateAssignmentOfArrayment(ArrayAssignment *a) {
 			printf("getVariable(%d), %s, %s);\n", *((int*)array->left), idx, val);
 
 			free(idx);
-
 			break;
 		}
-
 		case NESTED_INDEXING:
 		{
 			char * idx = getExpression((ExpressionNode*)array->right);
@@ -184,10 +191,8 @@ void generateAssignmentOfArrayment(ArrayAssignment *a) {
 			free(idx);
 			break;
 		}
-
 		default:
 			break;
-
 	}
 }
 
@@ -317,6 +322,13 @@ char* getExpression(ExpressionNode *node) {
 			result = malloc(STR_OVERHEAD + MAX_DIGITS);
 			sprintf(result, "anonFloat(%.5f)", *((float*)node->left));
 			free(node->left);
+			break;
+		}
+
+		case RANDOM_LITERAL:
+		{
+			result = malloc(STR_OVERHEAD + MAX_DIGITS);
+			sprintf(result, "anonRandom()");
 			break;
 		}
 

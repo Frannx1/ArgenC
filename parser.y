@@ -46,7 +46,7 @@ int getId(char *strId);
 %error-verbose
 
 %token <strval>   IDENTIFICADOR STRING;
-%token <intval>   ENTERO;
+%token <intval>   ENTERO RANDOM;
 %token <floatval> DECIMAL;
 
 %token NUMERO TEXTO NADA;
@@ -74,7 +74,7 @@ int getId(char *strId);
 
 %type <fnnode> func_call;
 
-%type <whilenode> while;
+%type <whilenode> while dowhile;
 %type <foreachnode> foreach;
 %type <fornode> for;
 
@@ -139,6 +139,11 @@ block:
     | while {
         $$ = malloc(sizeof(*$$));
         $$->type = WHILE_LOOP;
+        $$->node = $1;
+    }
+    | dowhile {
+        $$ = malloc(sizeof(*$$));
+        $$->type = DO_WHILE_LOOP;
         $$->node = $1;
     }
     | foreach {
@@ -207,6 +212,10 @@ expression:
 			$$->left = malloc(sizeof(float));
 			memcpy($$->left, &$1, sizeof(float));
     }
+    | RANDOM {
+	 		$$ = malloc(sizeof(*$$));
+			$$->type = RANDOM_LITERAL;
+    }
 	| array {
 	 	$$ = malloc(sizeof(*$$));
 	 	$$->type = ARRAY_LITERAL;
@@ -271,7 +280,7 @@ expression:
     ;
 
 func_call: 
-    CONCATENAR expression A IDENTIFICADOR {
+    CONCATENAR expression EN IDENTIFICADOR {
         $$ = malloc(sizeof(*$$));
         $$->function = ARR_APPEND;
         $$->first = malloc(sizeof(int));
@@ -302,7 +311,7 @@ func_call:
         $$->first = malloc(sizeof(int));
         *((int*)$$->first) = getId($2);
     }
-    | LEER NUMERO A IDENTIFICADOR {
+    | LEER NUMERO EN IDENTIFICADOR {
         $$ = malloc(sizeof(*$$));
         $$->function = SCAN_READ;
         $$->first = malloc(sizeof(int));
@@ -310,7 +319,7 @@ func_call:
         $$->second = malloc(sizeof(int));
         *((int*)$$->second) = getId($4);
     }
-    | LEER TEXTO A IDENTIFICADOR {
+    | LEER TEXTO EN IDENTIFICADOR {
         $$ = malloc(sizeof(*$$));
         $$->function = SCAN_READ;
         $$->first = malloc(sizeof(int));
@@ -380,6 +389,33 @@ while:
         $$->condition->left = $3;
         $$->body = $6;
     }
+    | MIENTRAS condition SEPARADOR HACER program FIN {
+        $$ = malloc(sizeof(*$$));
+        $$->condition = $2;
+        $$->body = $5;
+    }
+    | HASTA condition SEPARADOR HACER program FIN {
+        $$ = malloc(sizeof(*$$));
+        $$->condition = malloc(sizeof(*$$->condition));
+        $$->condition->type = BOOL_NOT;
+        $$->condition->left = $2;
+        $$->body = $5;
+    }
+    ;
+
+dowhile: 
+    HACER program FIN MIENTRAS condition {
+        $$ = malloc(sizeof(*$$));
+        $$->condition = $5;
+        $$->body = $2;
+    }
+    | HACER program FIN HASTA condition {
+        $$ = malloc(sizeof(*$$));
+        $$->condition = malloc(sizeof(*$$->condition));
+        $$->condition->type = BOOL_NOT;
+        $$->condition->left = $5;
+        $$->body = $2;
+    }
     ;
 
 foreach: 
@@ -404,6 +440,18 @@ for:
         $$->condition = $4;
         $$->body = $7;
     }
+    | DESDE asig HASTA condition SEPARADOR HACER program FIN {
+        $$ = malloc(sizeof(*$$));
+        $$->asig = $2;
+        $$->condition = $4;
+        $$->body = $7;
+    }
+    | DESDE HASTA condition SEPARADOR HACER program FIN {
+        $$ = malloc(sizeof(*$$));
+        $$->asig = NULL;
+        $$->condition = $3;
+        $$->body = $6;
+    }
     ;
 
 if: 
@@ -420,6 +468,19 @@ if:
         $$->body = $6;
         $$->elseif = $8;
     }
+    | SI condition SEPARADOR HACER program FIN {
+        $$ = malloc(sizeof(*$$));
+        $$->condition = $2;
+        $$->body = $5;
+        $$->elseif = NULL;
+
+    }
+    | SI condition SEPARADOR HACER program FIN elseif {
+        $$ = malloc(sizeof(*$$));
+        $$->condition = $2;
+        $$->body = $5;
+        $$->elseif = $7;
+    }
     ;
 
 elseif: 
@@ -434,6 +495,18 @@ elseif:
         $$->condition = $3;
         $$->body = $5;
         $$->elseif = $7;
+    }
+    | SINOSI condition program FIN {
+        $$ = malloc(sizeof(*$$));
+        $$->condition = $2;
+        $$->body = $3;
+        $$->elseif = NULL;
+    }
+    | SINOSI condition program FIN elseif {
+        $$ = malloc(sizeof(*$$));
+        $$->condition = $2;
+        $$->body = $3;
+        $$->elseif = $5;
     }
     | SINO program FIN {
         $$ = malloc(sizeof(*$$));
@@ -490,13 +563,17 @@ bool_comp:
 int main() {
 	printf("#include <stdlib.h>\n");
 
+	printf("#include <time.h>\n");
+
 	printf("#include \"variables.h\"\n");
 
 	printf("#include \"arrays.h\"\n");
 
 	printf("#include \"utils.h\"\n");
 
-    printf("int main(void) { \n\n");
+    printf("\nint main(void) { \n\n");
+
+    printf("srand(time(NULL));\n\n");
 
     // Start the Parsing (yacc)
     yyparse();
@@ -540,6 +617,7 @@ int yywrap() {
 }
 
 void yyerror(const char *s) {
-	fflush(stdout);
-	fprintf(stderr, "***%s\n", s);
+    extern int yylineno;  
+    extern char *yytext;  
+    fprintf(stderr, "ERROR: %s at symbol '%s' on line %d\n", s, yytext, yylineno);
 }

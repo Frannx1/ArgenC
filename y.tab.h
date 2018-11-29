@@ -42,88 +42,90 @@
      IDENTIFICADOR = 258,
      STRING = 259,
      ENTERO = 260,
-     DECIMAL = 261,
-     NUMERO = 262,
-     TEXTO = 263,
-     NADA = 264,
-     SI = 265,
-     SINOSI = 266,
-     SINO = 267,
-     MIENTRAS = 268,
-     HASTA = 269,
-     HACER = 270,
-     DESDE = 271,
-     PORCADA = 272,
-     RETORNA = 273,
-     SEPARADOR = 274,
-     ES = 275,
-     POR = 276,
-     DIVIDIDO = 277,
-     DECREMENTAR = 278,
-     INCREMENTAR = 279,
-     NEGAR = 280,
-     Y = 281,
-     O = 282,
-     DESIGUAL = 283,
-     IGUAL = 284,
-     MENOR = 285,
-     MENOR_IGUAL = 286,
-     MAYOR = 287,
-     MAYOR_IGUAL = 288,
-     IMPRIMIR = 289,
-     LEER = 290,
-     CONCATENAR = 291,
-     A = 292,
-     PONER = 293,
-     EN = 294,
-     MAYUSCULA = 295,
-     MINUSCULA = 296,
-     FIN = 297,
-     SALIR = 298
+     RANDOM = 261,
+     DECIMAL = 262,
+     NUMERO = 263,
+     TEXTO = 264,
+     NADA = 265,
+     SI = 266,
+     SINOSI = 267,
+     SINO = 268,
+     MIENTRAS = 269,
+     HASTA = 270,
+     HACER = 271,
+     DESDE = 272,
+     PORCADA = 273,
+     RETORNA = 274,
+     SEPARADOR = 275,
+     ES = 276,
+     POR = 277,
+     DIVIDIDO = 278,
+     DECREMENTAR = 279,
+     INCREMENTAR = 280,
+     NEGAR = 281,
+     Y = 282,
+     O = 283,
+     DESIGUAL = 284,
+     IGUAL = 285,
+     MENOR = 286,
+     MENOR_IGUAL = 287,
+     MAYOR = 288,
+     MAYOR_IGUAL = 289,
+     IMPRIMIR = 290,
+     LEER = 291,
+     CONCATENAR = 292,
+     A = 293,
+     PONER = 294,
+     EN = 295,
+     MAYUSCULA = 296,
+     MINUSCULA = 297,
+     FIN = 298,
+     SALIR = 299
    };
 #endif
 /* Tokens.  */
 #define IDENTIFICADOR 258
 #define STRING 259
 #define ENTERO 260
-#define DECIMAL 261
-#define NUMERO 262
-#define TEXTO 263
-#define NADA 264
-#define SI 265
-#define SINOSI 266
-#define SINO 267
-#define MIENTRAS 268
-#define HASTA 269
-#define HACER 270
-#define DESDE 271
-#define PORCADA 272
-#define RETORNA 273
-#define SEPARADOR 274
-#define ES 275
-#define POR 276
-#define DIVIDIDO 277
-#define DECREMENTAR 278
-#define INCREMENTAR 279
-#define NEGAR 280
-#define Y 281
-#define O 282
-#define DESIGUAL 283
-#define IGUAL 284
-#define MENOR 285
-#define MENOR_IGUAL 286
-#define MAYOR 287
-#define MAYOR_IGUAL 288
-#define IMPRIMIR 289
-#define LEER 290
-#define CONCATENAR 291
-#define A 292
-#define PONER 293
-#define EN 294
-#define MAYUSCULA 295
-#define MINUSCULA 296
-#define FIN 297
-#define SALIR 298
+#define RANDOM 261
+#define DECIMAL 262
+#define NUMERO 263
+#define TEXTO 264
+#define NADA 265
+#define SI 266
+#define SINOSI 267
+#define SINO 268
+#define MIENTRAS 269
+#define HASTA 270
+#define HACER 271
+#define DESDE 272
+#define PORCADA 273
+#define RETORNA 274
+#define SEPARADOR 275
+#define ES 276
+#define POR 277
+#define DIVIDIDO 278
+#define DECREMENTAR 279
+#define INCREMENTAR 280
+#define NEGAR 281
+#define Y 282
+#define O 283
+#define DESIGUAL 284
+#define IGUAL 285
+#define MENOR 286
+#define MENOR_IGUAL 287
+#define MAYOR 288
+#define MAYOR_IGUAL 289
+#define IMPRIMIR 290
+#define LEER 291
+#define CONCATENAR 292
+#define A 293
+#define PONER 294
+#define EN 295
+#define MAYUSCULA 296
+#define MINUSCULA 297
+#define FIN 298
+#define SALIR 299
 
 
 
@@ -157,7 +159,7 @@ typedef union YYSTYPE
     bool_operation boolop;
 }
 /* Line 1529 of yacc.c.  */
-#line 161 "y.tab.h"
+#line 163 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

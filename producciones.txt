@@ -18,6 +18,7 @@ ELSEIF -> sinosi separador CONDICION separador PROGRAM | sinosi separador CONDIC
 CONDICION -> E BOOL E | CONDICION or CONDICION | CONDICION and CONDICION | negar CONDICION.
 BOOL -> menorigual | menor | mayorigual | mayor | igual | desigual.
 
+verificar tabla en:
 http://smlweb.cpsc.ucalgary.ca/start.html
 
 P' -> P.
@@ -38,5 +39,5 @@ S -> w#C#P | w#C#PS | zP.
 C -> EOE | E'E | E$E | !E.
 O -> < | > | =.
 
-prose_compiler < programa_prose.pr > compiled.c
-gcc -Wall prose_functions.c prose_arrays.c variable_arithmetics.c variable_comparisons.c variable_manager.c compiled.c -o ejemplo.out
+compiler < ejemplo > compiled.c
+gcc -Wall utils.c arithmetics.c variables.c compare.c arrays.c primos.c -o primos.out

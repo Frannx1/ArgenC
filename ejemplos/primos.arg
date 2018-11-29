@@ -1,0 +1,39 @@
+hacer:
+    imprimir "Ingrese un numero hasta el cual desee calcular sus primos anteriores"
+    leer numero en n
+fin
+mientras que n sea menor o igual a 1
+
+vectorBooleano es []
+
+desde i = 0 hasta i menor a n, hacer:
+    vectorBooleano es vectorBooleano + 1
+    vectorBooleano[i] = 1
+    incrementar i
+fin
+
+desde i = 2 hasta que i sea menor que n, hacer:
+    si es que vectorBooleano[i] igual a 1, entonces:
+        comentario: checkeo solo hasta la raiz de n.
+
+        desde j = i*i hasta que j sea menor que n, hacer
+            vectorBooleano[j] = 0
+            j es j+i
+        fin
+    fin
+    incrementar i
+fin
+
+nota: los primos encontrados son los indices del arreglo
+      booleano que esten en 1.
+
+imprimir "Estos son los primos hasta " + n
+
+desde i = 2 hasta i menor a n, hacer:
+    si es que vectorBooleano[i] igual a 1, entonces
+        imprimir i
+    fin
+    incrementar i
+fin
+
+

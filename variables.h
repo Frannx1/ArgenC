@@ -39,6 +39,8 @@ VAR anonFloat(float value);
 
 VAR anonInteger(int value);
 
+VAR anonRandom(void);
+
 VAR anonString(char* value);
 
 VAR anonArray(int n, ...);

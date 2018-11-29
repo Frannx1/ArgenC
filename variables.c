@@ -52,6 +52,13 @@ VAR anonInteger(int value) {
 	return var;
 }
 
+VAR anonRandom(void) {
+	VAR var;
+	var.type = INT_T;
+	var.value.intValue = rand();
+	return var;
+}
+
 VAR anonString(char * value) {
 	VAR var;
 	var.type = STR_T;

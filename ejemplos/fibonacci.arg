@@ -1,0 +1,25 @@
+hacer:
+    imprimir "Ingrese un numero que indique el orden de fibonacci hasta el cual quiere saber la serie"
+    leer numero en n
+fin
+mientras que n sea menor a 0
+
+imprimir "La serie de fibonacci hasta el orden nº " + n + " es:"
+
+f1 es 0
+f2 es 1
+
+desde i = 0 hasta que i sea menor a n, repetir:
+    si i igual que 0 o i igual a 1, entonces:
+        imprimir i
+    fin
+    si no
+        aux es f1
+        f1 es f2
+        f2 es f2 + aux
+        imprimir f2
+    fin
+    incrementar i
+fin
+
+salir
