@@ -1,0 +1,43 @@
+PROGRAM' -> PROGRAM.
+PROGRAM -> BLOCK | BLOCK PROGRAM.
+BLOCK  -> ASIG | ARRASIGN | PRINT | WHILE | FOREACH | FOR | IF | FUNCCALL | EXIT.
+EXIT -> exit.
+ASIG -> id es E.
+ARRASIGN -> ARRINDEX es E.
+E -> string | entero | decimal | ARRAY | id | ARRINDEX | E plus E | E minus E | E mul E | E p E | E v E | E div E | minus E | parentesisA E parentesisC.
+FUNCCALL -> concatenar E a id | poner id en mayuscula | poner id en minuscula | incrementar id | decrementar id | leer numero a id | leer texto a id.
+ARRAY -> corcheteA EXPLIST corcheteC | corcheteA corcheteC.
+ARRINDEX -> id corcheteA E corcheteC | ARRINDEX corcheteA E corcheteC.
+EXPLIST -> E | E coma EXPLIST.
+PRINT -> imprimir E.
+WHILE -> mientras separador CONDICION separador hacer PROGRAM fin | hasta separador CONDICION separador hacer PROGRAM fin.
+FOREACH -> porcada id en id PROGRAM fin.
+FOR -> desde ASIG hasta separador CONDICION separador hacer PROGRAM fin | desde hasta separador CONDICION separador hacer PROGRAM fin.
+IF -> si separador CONDICION separador hacer PROGRAM fin | si separador CONDICION separador hacer PROGRAM ELSEIF fin.
+ELSEIF -> sinosi separador CONDICION separador PROGRAM | sinosi separador CONDICION separador PROGRAM ELSEIF | sino PROGRAM.
+CONDICION -> E BOOL E | CONDICION or CONDICION | CONDICION and CONDICION | negar CONDICION.
+BOOL -> menorigual | menor | mayorigual | mayor | igual | desigual.
+
+verificar tabla en:
+http://smlweb.cpsc.ucalgary.ca/start.html
+
+P' -> P.
+P -> B | BP.
+B -> A | G | P | W |  I  | F | X.
+X -> x.
+A -> isE.
+G -> NsE.
+E -> c | e | d | V | i | N | E+E | E-E | E*E | EpE | EvE | E/E | -E | (E).
+F -> rEti | piny | pinm | ^i | vi | lºti | l?ti.
+V -> [L] | [].
+N -> i[E] | N[E].
+L -> E | E,L.
+P -> uE.
+W -> q#C#>P} | h#C#>P}.
+I -> f#C#>P} | f#C#>PS}.
+S -> w#C#P | w#C#PS | zP.
+C -> EOE | E'E | E$E | !E.
+O -> < | > | =.
+
+compiler < ejemplo > compiled.c
+gcc -Wall utils.c arithmetics.c variables.c compare.c arrays.c primos.c -o primos.out
